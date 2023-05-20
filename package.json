@@ -55,7 +55,7 @@
     "typescript": "^5.0.4"
   },
   "lint-staged": {
-    "**/*.{ts,tsx}": "eslint --quite --fix",
+    "**/*.{ts,tsx}": "eslint --quiet --fix",
     "**/*.{md,html,css,cjs,js,jsx,ts,tsx}": "prettier --write"
   }
 }
