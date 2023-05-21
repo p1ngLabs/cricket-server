@@ -1,10 +1,14 @@
 import express, { Request, Response } from 'express';
 import cookieParser from 'cookie-parser';
 import httpStatus from 'http-status';
-import apiRoutes from './api/v1/index';
+import { Model } from 'objection';
+import knexInstance from '../database';
+import apiRoutes from './api/v1';
 import errorHandler from './helpers/errorHandler';
 
 const app = express();
+
+Model.knex(knexInstance);
 
 app.use(express.json());
 app.use(cookieParser());

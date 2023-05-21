@@ -9,7 +9,6 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
-    'prettier',
   ],
   overrides: [],
   parser: '@typescript-eslint/parser',
@@ -18,11 +17,12 @@ module.exports = {
     sourceType: 'module',
     project: './tsconfig.json',
   },
-  plugins: ['@typescript-eslint', 'prettier'],
+  plugins: ['@typescript-eslint'],
   rules: {
+    'prettier/prettier': ['error', { endOfLine: 'auto' }],
     indent: ['error', 2],
     'linebreak-style': ['warn', 'unix'],
-    quotes: ['error', 'single'],
+    quotes: ['warn', 'single'],
     semi: ['error', 'always'],
   },
 };
