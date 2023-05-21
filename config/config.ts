@@ -8,6 +8,7 @@ const config = {
   app: {
     nodeEnv: process.env.NODE_ENV || 'development',
     port: process.env.PORT || 3001,
+    clientUrl: process.env.CLIENT_URL,
   },
   database: {
     client: 'pg',

@@ -1,4 +1,5 @@
 import { Model } from 'objection';
+// import Order from '../orders/order.model';
 
 class User extends Model {
   static get tableName() {
@@ -15,6 +16,19 @@ class User extends Model {
       },
     };
   }
+
+  // static get relationMappings() {
+  //   return {
+  //     orders: {
+  //       relation: Model.HasManyRelation,
+  //       modelClass: Order,
+  //       join: {
+  //         from: 'users.id',
+  //         to: 'orders.user_id',
+  //       },
+  //     },
+  //   };
+  // }
 }
 
 export default User;
