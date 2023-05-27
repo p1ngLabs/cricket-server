@@ -3,7 +3,7 @@ import * as bookController from './book.controller';
 
 const router = express.Router();
 
-router.get('/', bookController.getBooks);
-router.get('/new-release', bookController.getNewReleaseBooks);
+router.get('/', bookController.getAllBooks);
+router.get('/:id', bookController.getBookById);
 
 export default router;

@@ -3,8 +3,8 @@ import httpStatus from 'http-status';
 import asyncHandler from '../../helpers/asyncHandler';
 import * as userService from './user.service';
 
-export const getUsers = asyncHandler(async (req: Request, res: Response) => {
-  const users = await userService.getUsers();
+export const getAllUsers = asyncHandler(async (req: Request, res: Response) => {
+  const users = await userService.getAllUsers();
   res.status(httpStatus.OK).json(users);
 });
 

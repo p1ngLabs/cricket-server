@@ -2,7 +2,7 @@ import httpStatus from 'http-status';
 import ApiError from '../../helpers/apiError';
 import User from './user.model';
 
-export const getUsers = async () => {
+export const getAllUsers = async () => {
   const users = await User.query()
     .select('id', 'username', 'email', 'phone', 'avatar')
     .where('role', 'customer');
