@@ -1,7 +1,7 @@
 import type { CorsOptions } from 'cors';
 import config from './config';
 
-const whitelist = ['http://localhost:3000', config.app.clientUrl];
+const whitelist = [config.app.clientUrl];
 
 const corsOptions: CorsOptions = {
   origin: (origin, callback) => {
