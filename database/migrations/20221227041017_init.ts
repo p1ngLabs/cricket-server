@@ -15,7 +15,7 @@ export async function up(knex: Knex): Promise<void> {
       table
         .enu('role', ['admin', 'moderator', 'customer'])
         .defaultTo('customer');
-      table.boolean('active');
+      table.boolean('active').defaultTo(true);
       table.timestamps(true, true);
     })
     .createTable('social_profiles', (table) => {
@@ -63,7 +63,7 @@ export async function up(knex: Knex): Promise<void> {
       table.integer('parentId').unsigned();
       table.string('name').unique().notNullable().index();
       table.string('slug');
-      table.boolean('active');
+      table.boolean('active').defaultTo(true);
       table.timestamps(true, true);
     })
     .createTable('books', (table) => {
@@ -93,7 +93,7 @@ export async function up(knex: Knex): Promise<void> {
       table.string('thumbnail').notNullable();
       table.string('photos');
       table.string('slug');
-      table.boolean('active');
+      table.boolean('active').defaultTo(true);
       table.timestamps(true, true);
     })
     .createTable('orders_books', (table) => {

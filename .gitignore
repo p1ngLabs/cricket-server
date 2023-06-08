@@ -14,6 +14,7 @@ dist-ssr
 .eslintcache
 coverage
 db-psql
+*.key
 
 # Editor directories and files
 .vscode/*
