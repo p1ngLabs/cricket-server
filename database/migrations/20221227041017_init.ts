@@ -11,8 +11,10 @@ export async function up(knex: Knex): Promise<void> {
       table.string('password');
       table.string('phone');
       table.string('avatar');
-      table.enu('gender', ['Female', 'Male', 'Other']);
-      table.enu('role', ['admin', 'customer']).defaultTo('customer');
+      table.enu('gender', ['female', 'male', 'other']);
+      table
+        .enu('role', ['admin', 'moderator', 'customer'])
+        .defaultTo('customer');
       table.boolean('active');
       table.timestamps(true, true);
     })
@@ -21,32 +23,32 @@ export async function up(knex: Knex): Promise<void> {
         .increments()
         .primary({ constraintName: 'social_profiles.primary_key' });
       table
-        .integer('user_id')
+        .integer('userId')
         .unsigned()
         .references('users.id')
         .onUpdate('cascade')
         .onDelete('cascade');
       table.string('provider').index();
       table.string('username');
-      table.string('image');
+      table.string('avatar');
       table.timestamps(true, true);
     })
     .createTable('orders', (table) => {
       table.increments().primary({ constraintName: 'orders.primary_key' });
       table
-        .integer('user_id')
+        .integer('userId')
         .unsigned()
         .references('users.id')
         .onUpdate('cascade');
-      table.string('payment_method');
-      table.enu('payment_status', ['paid', 'unpaid']);
-      table.string('shipping_type');
-      table.json('shipping_address');
+      table.string('paymentMethod');
+      table.enu('paymentStatus', ['paid', 'unpaid']);
+      table.string('shippingType');
+      table.json('shippingAddress');
       table.smallint('quantity');
       table.integer('total');
-      table.integer('shipping_cost');
-      table.integer('grand_total');
-      table.boolean('is_cart');
+      table.integer('shippingCost');
+      table.integer('grandTotal');
+      table.boolean('isCart');
       table.timestamps(true, true);
     })
     .createTable('authors', (table) => {
@@ -58,7 +60,7 @@ export async function up(knex: Knex): Promise<void> {
     })
     .createTable('categories', (table) => {
       table.increments().primary({ constraintName: 'categories.primary_key' });
-      table.integer('parent_id').unsigned();
+      table.integer('parentId').unsigned();
       table.string('name').unique().notNullable().index();
       table.string('slug');
       table.boolean('active');
@@ -67,56 +69,56 @@ export async function up(knex: Knex): Promise<void> {
     .createTable('books', (table) => {
       table.increments().primary({ constraintName: 'books.primary_key' });
       table
-        .integer('category_id')
+        .integer('categoryId')
         .unsigned()
         .references('categories.id')
         .onUpdate('cascade');
       table
-        .integer('author_id')
+        .integer('authorId')
         .unsigned()
         .references('authors.id')
         .onUpdate('cascade');
       table.string('title').notNullable().index();
       table.text('description');
       table.string('publisher').index();
-      table.string('published_date');
+      table.string('publishedDate');
       table.integer('pages');
       table.string('dimensions');
       table.string('language');
       table.string('isbn', 13).index();
       table.enu('condition', ['new', 'used']).index();
       table.integer('price').index();
-      table.smallint('current_stock');
-      table.integer('sold_copies');
+      table.smallint('currentStock');
+      table.integer('soldCopies');
       table.string('thumbnail').notNullable();
       table.string('photos');
       table.string('slug');
       table.boolean('active');
       table.timestamps(true, true);
     })
-    .createTable('sale_books', (table) => {
-      table.increments().primary({ constraintName: 'sale_books.primary_key' });
-      table
-        .integer('book_id')
-        .unsigned()
-        .references('books.id')
-        .onUpdate('cascade')
-        .onDelete('cascade');
-      table.integer('sale_price').index();
-      table.datetime('start_sale');
-      table.datetime('end_sale');
-      table.timestamps(true, true);
-    })
     .createTable('orders_books', (table) => {
       table
-        .integer('order_id')
+        .integer('orderId')
         .unsigned()
         .references('orders.id')
         .onUpdate('cascade');
       table
-        .integer('book_id')
+        .integer('bookId')
         .unsigned()
         .references('books.id')
+        .onUpdate('cascade');
+      table.timestamps(true, true);
+    })
+    .createTable('books_authors', (table) => {
+      table
+        .integer('bookId')
+        .unsigned()
+        .references('books.id')
+        .onUpdate('cascade');
+      table
+        .integer('authorId')
+        .unsigned()
+        .references('authors.id')
         .onUpdate('cascade');
       table.timestamps(true, true);
     });
@@ -125,21 +127,22 @@ export async function up(knex: Knex): Promise<void> {
 export async function down(knex: Knex): Promise<void> {
   await Promise.all([
     knex.schema.table('social_profiles', (table) => {
-      table.dropForeign('user_id');
+      table.dropForeign('userId');
     }),
     knex.schema.table('orders', (table) => {
-      table.dropForeign('user_id');
+      table.dropForeign('userId');
     }),
     knex.schema.table('books', (table) => {
-      table.dropForeign('category_id');
-      table.dropForeign('author_id');
-    }),
-    knex.schema.table('sale_books', (table) => {
-      table.dropForeign('book_id');
+      table.dropForeign('categoryId');
+      table.dropForeign('authorId');
     }),
     knex.schema.table('orders_books', (table) => {
-      table.dropForeign('order_id');
-      table.dropForeign('book_id');
+      table.dropForeign('orderId');
+      table.dropForeign('bookId');
+    }),
+    knex.schema.table('books_authors', (table) => {
+      table.dropForeign('bookId');
+      table.dropForeign('authorId');
     }),
   ]);
   await knex.schema
@@ -148,7 +151,7 @@ export async function down(knex: Knex): Promise<void> {
     .dropTable('orders')
     .dropTable('authors')
     .dropTable('categories')
-    .dropTable('sale_books')
     .dropTable('books')
-    .dropTable('orders_books');
+    .dropTable('orders_books')
+    .dropTable('books_authors');
 }
