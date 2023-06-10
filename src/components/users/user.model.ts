@@ -1,5 +1,5 @@
 import { Model } from 'objection';
-// import Order from '../orders/order.model';
+import Order from '../orders/order.model';
 
 class User extends Model {
   email!: string;
@@ -10,18 +10,18 @@ class User extends Model {
     return 'users';
   }
 
-  // static get relationMappings() {
-  //   return {
-  //     orders: {
-  //       relation: Model.HasManyRelation,
-  //       modelClass: Order,
-  //       join: {
-  //         from: 'users.id',
-  //         to: 'orders.user_id',
-  //       },
-  //     },
-  //   };
-  // }
+  static get relationMappings() {
+    return {
+      orders: {
+        relation: Model.HasManyRelation,
+        modelClass: Order,
+        join: {
+          from: 'users.id',
+          to: 'orders.userId',
+        },
+      },
+    };
+  }
 }
 
 export default User;

@@ -13,7 +13,7 @@ class Order extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: User,
         join: {
-          from: 'orders.user_id',
+          from: 'orders.userId',
           to: 'users.id',
         },
       },
@@ -23,8 +23,8 @@ class Order extends Model {
         join: {
           from: 'orders.id',
           through: {
-            from: 'orders_books.order_id',
-            to: 'orders_books.book_id',
+            from: 'orders_books.orderId',
+            to: 'orders_books.bookId',
           },
           to: 'books.id',
         },

@@ -2,7 +2,6 @@ import { Model } from 'objection';
 import Category from '../categories/category.model';
 import Order from '../orders/order.model';
 import Author from '../authors/author.model';
-import SaleBook from '../saleBooks/saleBook.model';
 
 class Book extends Model {
   static get tableName() {
@@ -15,7 +14,7 @@ class Book extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: Category,
         join: {
-          from: 'books.category_id',
+          from: 'books.categoryId',
           to: 'categories.id',
         },
       },
@@ -25,26 +24,22 @@ class Book extends Model {
         join: {
           from: 'books.id',
           through: {
-            from: 'orders_books.book_id',
-            to: 'orders_books.order_id',
+            from: 'orders_books.bookId',
+            to: 'orders_books.orderId',
           },
           to: 'orders.id',
         },
       },
-      author: {
-        relation: Model.BelongsToOneRelation,
+      authors: {
+        relation: Model.ManyToManyRelation,
         modelClass: Author,
         join: {
-          from: 'books.author_id',
-          to: 'authors.id',
-        },
-      },
-      sale_books: {
-        relation: Model.HasManyRelation,
-        modelClass: SaleBook,
-        join: {
           from: 'books.id',
-          to: 'sale_books.book_id',
+          through: {
+            from: 'books_authors.bookId',
+            to: 'books_authors.authorId',
+          },
+          to: 'authors.id',
         },
       },
     };

@@ -13,7 +13,7 @@ class Category extends Model {
         modelClass: Book,
         join: {
           from: 'categories.id',
-          to: 'book.category_id',
+          to: 'book.categoryId',
         },
       },
     };

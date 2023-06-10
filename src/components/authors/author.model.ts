@@ -9,11 +9,15 @@ class Author extends Model {
   static get relationMappings() {
     return {
       books: {
-        relation: Model.HasManyRelation,
+        relation: Model.ManyToManyRelation,
         modelClass: Book,
         join: {
           from: 'authors.id',
-          to: 'books.author_id',
+          through: {
+            from: 'books_authors.authorId',
+            to: 'books_authors.bookId',
+          },
+          to: 'books.id',
         },
       },
     };
