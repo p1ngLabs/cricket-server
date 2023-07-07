@@ -1,5 +1,5 @@
 import httpStatus from 'http-status';
-import ApiError from '../../helpers/apiError';
+import ApiError from '../../utils/apiError';
 import User from './user.model';
 
 export const getAllUsers = async () => {

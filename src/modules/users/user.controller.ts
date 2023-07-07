@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
-import asyncHandler from '../../helpers/asyncHandler';
+import asyncHandler from '../../utils/asyncHandler';
 import * as userService from './user.service';
 
 export const getAllUsers = asyncHandler(async (req: Request, res: Response) => {

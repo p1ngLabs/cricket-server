@@ -9,7 +9,7 @@ import passport from 'passport';
 import expressSession from 'express-session';
 import knexInstance from '../database';
 import apiRoutes from './api/v1';
-import errorHandler from './helpers/errorHandler';
+import errorHandler from './utils/errorHandler';
 import corsOptions from '../config/cors';
 import sessionOptions from '../database/session';
 import passportInit from '../config/passport';

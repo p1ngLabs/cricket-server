@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
-import asyncHandler from '../../helpers/asyncHandler';
+import asyncHandler from '../../utils/asyncHandler';
 import * as bookService from './book.service';
 
 export const getAllBooks = asyncHandler(async (req: Request, res: Response) => {

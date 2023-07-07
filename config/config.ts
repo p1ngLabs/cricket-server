@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv';
 import httpStatus from 'http-status';
-import ApiError from '../src/helpers/apiError';
+import ApiError from '../src/utils/apiError';
 
 dotenv.config();
 

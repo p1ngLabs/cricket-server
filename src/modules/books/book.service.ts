@@ -1,5 +1,5 @@
 import httpStatus from 'http-status';
-import ApiError from '../../helpers/apiError';
+import ApiError from '../../utils/apiError';
 import Book from './book.model';
 import Author from '../authors/author.model';
 
